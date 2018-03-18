@@ -14,9 +14,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author root
  */
-public class DateParser {
+public class DateParser implements BaseDateParser{
     public static final String[] DAYS = {"Sunday", "Monday", "Tuesday","Wednesday", "Thursday", "Friday", "Saturday"};
     private static final Logger logger = LoggerFactory.getLogger(DateParser.class);
+    
+    @Override
     public String getWeek(final Date date){
         logger.info("date: " + date.toString());
         

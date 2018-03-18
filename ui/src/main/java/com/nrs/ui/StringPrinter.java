@@ -5,6 +5,7 @@
  */
 package com.nrs.ui;
 
+import com.nrs.dao.DateParser;
 import com.nrs.service.WeekDayChecker;
 import java.text.ParseException;
 import org.slf4j.Logger;
@@ -25,8 +26,8 @@ public class StringPrinter {
         }else{
             argument = args[0];
         }
-        
-        final WeekDayChecker weekChecker = new WeekDayChecker();
+        final DateParser parser = new DateParser();
+        final WeekDayChecker weekChecker = new WeekDayChecker(parser);
         
         try {
             String result = weekChecker.parseWeek(argument);

@@ -6,31 +6,21 @@
         <artifactId>HomeWork1</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>service</artifactId>
+    <artifactId>integration-tests</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
-    <dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-log4j12</artifactId>
-    </dependency>
-    <dependency>
+         <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
             </dependency>
-    <dependency>
-        <groupId>com.nrs</groupId>
-        <artifactId>dao</artifactId>
+            <dependency>
+    <groupId>com.nrs</groupId>
+    <artifactId>service</artifactId>
     </dependency>
-    <dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-all</artifactId>
-</dependency>
-
     </dependencies>
 </project>
