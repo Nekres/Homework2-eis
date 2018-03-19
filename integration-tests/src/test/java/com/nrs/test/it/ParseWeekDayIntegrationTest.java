@@ -26,12 +26,15 @@ public class ParseWeekDayIntegrationTest {
          String result = dayChecker.parseWeek("18-03-2018");
          String expectedResult = "Sunday";
          Assert.assertEquals(result,expectedResult);
+         
+         
     }
     
     @Test(expected = NullPointerException.class)
     public void testNull() throws ParseException{
-         WeekDayChecker dayChecker = new WeekDayChecker(null);
-         String result = dayChecker.parseWeek("18-03-2018");
+         DateParser parser = new DateParser();
+         WeekDayChecker dayChecker = new WeekDayChecker(parser);
+         String result = dayChecker.parseWeek(null);
          String expectedResult = "Sunday";
          Assert.assertEquals(result,expectedResult);
     }
