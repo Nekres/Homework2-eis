@@ -14,18 +14,22 @@ import java.util.logging.Logger;
  */
 public class Service implements Iservice{
     
+    
     @Override
     public String getValue(String val) {
+        System.out.println("Simulating long process...");
        simulateLongExecution();
+        System.out.println("Simulation ended");
        return val + " : success";
     }
-    
-    private void simulateLongExecution(){
+    @Cacheable(key = "#getValue")
+    public boolean simulateLongExecution(){
         try {
             Thread.sleep(4000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return true;
     }
     
 }

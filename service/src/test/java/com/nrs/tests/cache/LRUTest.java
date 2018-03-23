@@ -5,10 +5,18 @@
  */
 package com.nrs.tests.cache;
 
+import com.nrs.cacheable.LeastRecentlyUsed;
+import org.junit.Test;
+
 /**
  *
  * @author root
  */
 public class LRUTest {
     
+    @Test
+    public void testLRU(){
+        LeastRecentlyUsed lru = new LeastRecentlyUsed(10);
+        
+    }
 }

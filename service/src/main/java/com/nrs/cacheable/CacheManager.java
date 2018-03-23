@@ -8,8 +8,6 @@ package com.nrs.cacheable;
 import com.nrs.cacheable.exceptions.NonCacheableClassException;
 import com.nrs.cacheable.exceptions.NonCacheableException;
 import com.nrs.cacheable.exceptions.NonCacheableMethodException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -20,11 +18,10 @@ import java.util.List;
 
 /**
  * Using proxy to intercept method calls.
- *
+ * 
  * @author root
  */
 public class CacheManager<T> implements InvocationHandler {
-    private T c;
     private final T target;
     private final HashMap<String, Method> cacheable = new HashMap<>();
     private final CacheStrategy strategy;
@@ -39,7 +36,6 @@ public class CacheManager<T> implements InvocationHandler {
         Object result = null;
         if (isEqual(cacheable.get(method.getName()), method)) {
                 String name = method.toString();
-                System.out.println(name);
                 result =  strategy.getValue(name, args);
                 if(result == null){
                     result = method.invoke(target, args);
@@ -69,11 +65,13 @@ public class CacheManager<T> implements InvocationHandler {
                 cacheable.put(method.getName(), method);
             }
         }
-        //check on @Override because proxy can't handle classes that does not have an ancestor
+        
         for (Method m : clazz.getMethods()) {
-            if (checkOnAnnotation(m) ) {
-                cacheable.put(m.getName(), m);
-                System.out.println("put " + m.getAnnotation(Cacheable.class).key());
+            System.out.println(m.getName());
+            if (checkOnAnnotation(m) && m.getDeclaringClass().equals(clazz)) { //check if this method declared in current class, not in ancestor's class
+                if(!cacheable.containsKey(m.getName())){
+                    cacheable.put(m.getName(), m); 
+                }
             }
         }
         
@@ -103,7 +101,12 @@ public class CacheManager<T> implements InvocationHandler {
         }
         return common;
     }
-
+    /**
+     * Check if annotation present at given Method. 
+     * @param method - method to check
+     * @return true if annotation present
+     * @throws NonCacheableMethodException if method has return type = Void
+     */
     private boolean checkOnAnnotation(final Method method) throws NonCacheableMethodException {
         if (method.getAnnotation(Cacheable.class) != null) {
             if (method.getReturnType().equals(Void.TYPE)) {
@@ -113,8 +116,22 @@ public class CacheManager<T> implements InvocationHandler {
         }else
         return false;
     }
-    
+    /**
+     * Compares methods by their names, parameters count and types
+     * @param first
+     * @param second
+     * @return true if equal
+     */
     private boolean isEqual(final Method first, final Method second) {
-        return first.getParameterCount() == second.getParameterCount() && first.getName().equals(second.getName());
+        boolean equal = first.getParameterCount() == second.getParameterCount() && first.getName().equals(second.getName());
+        if(!equal){
+            return false;
+        }else if(first.getParameterTypes() != null && second.getParameterTypes() != null){
+                return Arrays.equals(first.getParameterTypes(), second.getParameterTypes());
+            }else if(first.getParameterTypes() == null){ //checking only one method, because we already knew that their length is equal
+                return true;
+            }{
+                return false;
+        }
     }
 }
