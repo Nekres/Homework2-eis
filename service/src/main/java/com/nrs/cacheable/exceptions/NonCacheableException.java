@@ -6,14 +6,9 @@
 package com.nrs.cacheable.exceptions;
 
 /**
- *
+ * Root caching exception, in case if we want to catch every caching exception.
  * @author root
  */
 public class NonCacheableException extends Exception{
-
-//    public NonCacheableException(String message) {
-//        super(message);
-//    }
-    
     
 }

@@ -6,19 +6,22 @@
 package com.nrs.tests.cache;
 
 import com.nrs.cacheable.CacheManager;
-import java.lang.reflect.Method;
+import com.nrs.cacheable.CacheStrategy;
 import org.junit.Test;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.when;
 
 /**
  *
  * @author root
  */
 public class CacheManagerTest {
+    CacheStrategy strategy = Mockito.mock(CacheStrategy.class);
     
     @Test
     public void testIsEqual() throws NoSuchMethodException{
-        Method isEqual = CacheManager.class.getDeclaredMethod("isEqual", Method.class,Method.class);
-        isEqual.setAccessible(true);
+//        when(strategy.getValue("example", null)).thenReturn(this)
+//        CacheManager<Iservice> cacheManager = new CacheManager<>(service);
         
         
     }

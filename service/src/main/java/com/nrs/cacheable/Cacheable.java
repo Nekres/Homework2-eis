@@ -16,7 +16,4 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Cacheable {
-    
-    String key();
-}
+public @interface Cacheable {}

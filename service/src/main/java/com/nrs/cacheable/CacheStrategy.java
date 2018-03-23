@@ -11,7 +11,7 @@ package com.nrs.cacheable;
  */
 public interface CacheStrategy {
     
-     public Object getValue(final String methodName, Object... args);
-     public void putValue(final String key, final Object value);
+     public Object getValue(final MethodInfo methodName, Object... args);
+     public void putValue(final MethodInfo key, final Object value);
     
 }

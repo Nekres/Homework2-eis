@@ -26,7 +26,7 @@
             </dependency>
                 <dependency>
                 <groupId>com.nrs</groupId>
-                <artifactId>base</artifactId>
+                <artifactId>common</artifactId>
             </dependency>
     </dependencies>
     

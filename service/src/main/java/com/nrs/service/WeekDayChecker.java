@@ -5,7 +5,6 @@
  */
 package com.nrs.service;
 import com.nrs.dao.BaseDateParser;
-import com.nrs.dao.DateParser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,7 +14,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author root
  */
-public class WeekDayChecker{
+public class WeekDayChecker implements BaseWeekDayChecker{
     public static final String FORMAT = "dd-MM-yyyy";
     private static final Logger logger = LoggerFactory.getLogger(WeekDayChecker.class);
     
@@ -24,7 +23,7 @@ public class WeekDayChecker{
     public WeekDayChecker(final BaseDateParser parser) {
         this.parser = parser;
     }
-    
+    @Override
     public String parseWeek(final String input) throws ParseException{
         logger.info("parseWeek input: " + input);
         

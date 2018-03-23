@@ -9,20 +9,18 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
+ * Contains information about each method call.
  * @author root
  */
-public class Tuple {
+public class MethodInfo {
     
     private final String methodName;
     private final List<Object> params;
-    private final Object result;
     private final int paramsCount;
 
-    public Tuple(String methodName, List<Object> params, Object result, int paramsCount) {
+    public MethodInfo(String methodName, List<Object> params, int paramsCount) {
         this.methodName = methodName;
         this.params = params;
-        this.result = result;
         this.paramsCount = paramsCount;
     }
 
@@ -31,7 +29,6 @@ public class Tuple {
         int hash = 3;
         hash = 47 * hash + Objects.hashCode(this.methodName);
         hash = 47 * hash + Objects.hashCode(this.params);
-        hash = 47 * hash + Objects.hashCode(this.result);
         hash = 47 * hash + this.paramsCount;
         return hash;
     }
@@ -47,7 +44,7 @@ public class Tuple {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Tuple other = (Tuple) obj;
+        final MethodInfo other = (MethodInfo) obj;
         if (this.paramsCount != other.paramsCount) {
             return false;
         }
@@ -55,9 +52,6 @@ public class Tuple {
             return false;
         }
         if (!Objects.equals(this.params, other.params)) {
-            return false;
-        }
-        if (!Objects.equals(this.result, other.result)) {
             return false;
         }
         return true;

@@ -6,7 +6,6 @@
 package com.nrs.cacheable;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  *
@@ -14,8 +13,7 @@ import java.util.List;
  */
 public class LeastRecentlyUsed implements CacheStrategy{
     private final int capacity;
-    HashMap<String, List<Object>> cache = new HashMap<>();
-    HashMap<String, Node> results = new HashMap<>();
+    HashMap<MethodInfo, Node> results = new HashMap<>();
     
     private Node head;
     private Node tail;
@@ -28,7 +26,7 @@ public class LeastRecentlyUsed implements CacheStrategy{
     
     
     @Override
-    public Object getValue(final String key, Object ...args) {
+    public Object getValue(final MethodInfo key, Object ...args) {
         
         if(results.containsKey(key)){
             Node result = results.get(key);
@@ -51,8 +49,9 @@ public class LeastRecentlyUsed implements CacheStrategy{
             tail = n.previous;
         }
     }
+    
     @Override
-    public void putValue(String key, Object value){
+    public void putValue(MethodInfo key, Object value){
         if(results.containsKey(key)){
             Node r = results.get(key);
             r.value = value;
@@ -83,12 +82,12 @@ public class LeastRecentlyUsed implements CacheStrategy{
     }
     
     class Node{
-    String key;
+    MethodInfo key;
     Object value;
     Node next;
     Node previous;
     
-    public Node(String key, Object value){
+    public Node(MethodInfo key, Object value){
         this.key = key;
         this.value = value;
     }

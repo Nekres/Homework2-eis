@@ -6,7 +6,7 @@
 package com.nrs.cacheable.exceptions;
 
 /**
- *
+ * Thrown when class could not be cacheable.
  * @author root
  */
 public class NonCacheableClassException extends NonCacheableException{

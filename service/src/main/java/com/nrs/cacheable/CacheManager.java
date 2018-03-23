@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Using proxy to intercept method calls.
@@ -22,6 +24,8 @@ import java.util.List;
  * @author root
  */
 public class CacheManager<T> implements InvocationHandler {
+    private static final Logger logger = LoggerFactory.getLogger(CacheManager.class);
+    
     private final T target;
     private final HashMap<String, Method> cacheable = new HashMap<>();
     private final CacheStrategy strategy;
@@ -35,17 +39,15 @@ public class CacheManager<T> implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Object result = null;
         if (isEqual(cacheable.get(method.getName()), method)) {
-                String name = method.toString();
-                result =  strategy.getValue(name, args);
+                MethodInfo m = new MethodInfo(method.getName(), Arrays.asList(args), method.getParameterCount());
+                result =  strategy.getValue(m, args);
                 if(result == null){
                     result = method.invoke(target, args);
-                    strategy.putValue(method.toString(), result);
+                    strategy.putValue(m, result);
                 }
                 return result;
         } else {
-            
             result = method.invoke(target, args);
-            strategy.putValue(method.toString(), result);
             return result;
         }
     }
@@ -56,7 +58,7 @@ public class CacheManager<T> implements InvocationHandler {
      * @return proxy-object
      * @throws NonCacheableException
      */
-    public T register() throws NonCacheableException {
+    public T buildProxy() throws NonCacheableException {
         Class clazz = target.getClass();
         List<Method> common = this.getCommonMethods(clazz);
         //common ancestors methods with real type
@@ -67,7 +69,6 @@ public class CacheManager<T> implements InvocationHandler {
         }
         
         for (Method m : clazz.getMethods()) {
-            System.out.println(m.getName());
             if (checkOnAnnotation(m) && m.getDeclaringClass().equals(clazz)) { //check if this method declared in current class, not in ancestor's class
                 if(!cacheable.containsKey(m.getName())){
                     cacheable.put(m.getName(), m); 
@@ -83,9 +84,9 @@ public class CacheManager<T> implements InvocationHandler {
     }
 
     /**
-     * Used to compare
+     * Used to get common methods from interfaces
      *
-     * @return
+     * @return list of common methods
      */
     private final List<Method> getCommonMethods(Class clazz) {
         List<Method> common = new ArrayList<>();
@@ -105,7 +106,7 @@ public class CacheManager<T> implements InvocationHandler {
      * Check if annotation present at given Method. 
      * @param method - method to check
      * @return true if annotation present
-     * @throws NonCacheableMethodException if method has return type = Void
+     * @throws NonCacheableMethodException if method has return type = Void. We can't cache void
      */
     private boolean checkOnAnnotation(final Method method) throws NonCacheableMethodException {
         if (method.getAnnotation(Cacheable.class) != null) {
@@ -124,14 +125,12 @@ public class CacheManager<T> implements InvocationHandler {
      */
     private boolean isEqual(final Method first, final Method second) {
         boolean equal = first.getParameterCount() == second.getParameterCount() && first.getName().equals(second.getName());
-        if(!equal){
+        if (!equal) {
             return false;
-        }else if(first.getParameterTypes() != null && second.getParameterTypes() != null){
-                return Arrays.equals(first.getParameterTypes(), second.getParameterTypes());
-            }else if(first.getParameterTypes() == null){ //checking only one method, because we already knew that their length is equal
-                return true;
-            }{
-                return false;
-        }
+        } else if (first.getParameterTypes() != null && second.getParameterTypes() != null) {
+            return Arrays.equals(first.getParameterTypes(), second.getParameterTypes());
+        } else if (first.getParameterTypes() == null) { //checking only one method, because we already knew that their length is equal
+            return true;
+        }else return false;
     }
 }

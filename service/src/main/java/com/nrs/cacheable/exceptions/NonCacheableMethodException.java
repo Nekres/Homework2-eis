@@ -6,7 +6,7 @@
 package com.nrs.cacheable.exceptions;
 
 /**
- *
+ * Thrown when method could not be cached by some reasons.
  * @author root
  */
 public class NonCacheableMethodException extends NonCacheableException{
