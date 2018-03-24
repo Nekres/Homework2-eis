@@ -27,6 +27,10 @@
         <groupId>com.nrs</groupId>
         <artifactId>dao</artifactId>
     </dependency>
+     <dependency>
+        <groupId>com.nrs</groupId>
+        <artifactId>caching</artifactId>
+    </dependency>
     <dependency>
     <groupId>org.mockito</groupId>
     <artifactId>mockito-all</artifactId>

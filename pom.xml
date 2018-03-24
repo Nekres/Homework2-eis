@@ -10,6 +10,7 @@
         <module>dao</module>
         <module>ui</module>
         <module>common</module>
+        <module>сaching</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -85,6 +86,11 @@
             <dependency>
                 <groupId>com.nrs</groupId>
                 <artifactId>common</artifactId>
+                <version>1.0</version>
+            </dependency>
+                        <dependency>
+                <groupId>com.nrs</groupId>
+                <artifactId>caching</artifactId>
                 <version>1.0</version>
             </dependency>
         </dependencies>

@@ -21,5 +21,9 @@
     <groupId>com.nrs</groupId>
     <artifactId>service</artifactId>
     </dependency>
+    <dependency>
+    <groupId>com.nrs</groupId>
+    <artifactId>caching</artifactId>
+    </dependency>
     </dependencies>
 </project>
