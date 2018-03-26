@@ -10,7 +10,7 @@
         <module>dao</module>
         <module>ui</module>
         <module>common</module>
-        <module>сaching</module>
+        <module>caching</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
