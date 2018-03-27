@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nrs.test.it;
+package com.nrs.cacheable.exceptions;
 
 /**
- *
- * @author nrs
+ * Root caching exception, in case if we want to catch every caching exception.
+ * @author root
  */
-public interface CacheInterfaceTest {
-     public String getString(String value);
-     public int getInvokeCount();
-     public void getVoid();
+public class NonCacheableException extends Exception{
+    
 }

@@ -1,3 +1,6 @@
 /integration-tests/target/
 /base/target/
 /common/target/
+/service/target/
+/ui/target/
+/dao/target/

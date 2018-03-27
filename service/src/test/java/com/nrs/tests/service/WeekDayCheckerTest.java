@@ -10,16 +10,25 @@ import com.nrs.service.WeekDayChecker;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import static org.mockito.Mockito.when;
-import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  *
  * @author nrs
  */
+@RunWith(MockitoJUnitRunner.class)
 public class WeekDayCheckerTest {
-    BaseDateParser parser = Mockito.mock(BaseDateParser.class);
+    
+    @Mock
+    BaseDateParser parser;
+    @Rule
+    public ExpectedException thrown= ExpectedException.none();
     
     @Test
     public void testParseWeek() throws ParseException{
@@ -55,14 +64,16 @@ public class WeekDayCheckerTest {
         Assert.assertEquals("Saturday", saturdayResult);
         
     }
-    @Test(expected = ParseException.class)
+    @Test
     public void testParseWeekOnParseException() throws ParseException{
+        thrown.expect(ParseException.class);
         WeekDayChecker dayChecker = new WeekDayChecker(parser);
         dayChecker.parseWeek("20/9/2019");
         
     }
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testParseWeekOnNull() throws ParseException{
+        thrown.expect(NullPointerException.class);
         WeekDayChecker dayChecker = new WeekDayChecker(parser);
         dayChecker.parseWeek(null);
     }

@@ -10,14 +10,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  *
  * @author nrs
  */
 public class DateParserTest {
-    
+    @Rule
+    public ExpectedException thrown= ExpectedException.none();
     @Test
     public void testGetWeek() throws ParseException{
         final DateParser parser = new DateParser();
@@ -44,8 +47,8 @@ public class DateParserTest {
         Assert.assertEquals(parser.getWeek(saturday), "Saturday");
         
     }
-    @Test(expected = NullPointerException.class)
     public void testGetWeekOnNull(){
+        thrown.expect(NullPointerException.class);
         DateParser parser = new DateParser();
         parser.getWeek(null);
     }

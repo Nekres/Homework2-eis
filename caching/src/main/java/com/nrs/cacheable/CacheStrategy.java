@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nrs.test.it;
+package com.nrs.cacheable;
 
 /**
  *
- * @author nrs
+ * @author root
  */
-public interface IntegrationTest {
+public interface CacheStrategy {
+     public Object getValue(final MethodInfo methodName);
+     public void putValue(final MethodInfo key, final Object value);
     
 }

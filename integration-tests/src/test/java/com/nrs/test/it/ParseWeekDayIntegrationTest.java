@@ -16,7 +16,6 @@ import org.junit.experimental.categories.Category;
  *
  * @author nrs
  */
-@Category(IntegrationTest.class)
 public class ParseWeekDayIntegrationTest {
     
     @Test
