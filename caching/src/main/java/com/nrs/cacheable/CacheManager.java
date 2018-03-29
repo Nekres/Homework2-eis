@@ -83,7 +83,7 @@ public class CacheManager<T> implements InvocationHandler {
     }
 
     /**
-     * Used to get common methods from interfaces
+     * Used to get common methods from interfaces in hierarchy
      *
      * @return list of common methods
      */

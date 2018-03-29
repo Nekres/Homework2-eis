@@ -26,7 +26,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class WeekDayCheckerTest {
     
     @Mock
-    BaseDateParser parser;
+    BaseDateParser parser; 
     @Rule
     public ExpectedException thrown= ExpectedException.none();
     

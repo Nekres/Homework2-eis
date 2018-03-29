@@ -1,11 +1,16 @@
+data/integration-tests/src/main/resources/test-context.xml.i
+data/service/src/main/resources/service-context.xml.i
 data/service/src/main/java/com/nrs/service/WeekDayChecker.java.i
 data/ui/src/test/java/com/nrs/ui/it/WeekParseIntegrationTest.java.i
+data/customized-dao/src/main/resources/custom-dao-context.xml.i
 data/pom.xml.i
+data/ui/src/main/resources/ui-context.xml.i
 data/integration-tests/src/test/java/com/nrs/test/it/CacheManagerTest.java.i
 data/caching/src/main/java/com/nrs/cacheable/CacheStrategy.java.i
 data/caching/src/main/java/com/nrs/cacheable/exceptions/NonCacheableException.java.i
 data/ui/src/main/java/com/nrs/ui/StringPrinter.java.i
 data/dao/pom.xml.i
+data/customized-dao/pom.xml.i
 data/integration-tests/src/test/java/com/nrs/test/it/IntegrationTest.java.i
 data/integration-tests/src/test/java/com/nrs/test/it/CacheInterfaceTest.java.i
 data/common/src/main/resources/log4j.xml.i
@@ -29,4 +34,5 @@ data/caching/src/main/java/com/nrs/cacheable/CacheManager.java.i
 data/ui/nbactions.xml.i
 data/caching/src/main/java/com/nrs/cacheable/exceptions/NonCacheableMethodException.java.i
 data/caching/pom.xml.i
+data/customized-dao/src/main/java/com/nrs/customized/dao/RusDateParser.java.i
 data/service/pom.xml.i

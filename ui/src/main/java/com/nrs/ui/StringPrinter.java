@@ -8,12 +8,15 @@ package com.nrs.ui;
 import com.nrs.cacheable.CacheManager;
 import com.nrs.cacheable.LeastRecentlyUsed;
 import com.nrs.cacheable.exceptions.NonCacheableException;
+import com.nrs.dao.BaseDateParser;
 import com.nrs.dao.DateParser;
 import com.nrs.service.BaseWeekDayChecker;
 import com.nrs.service.WeekDayChecker;
 import java.text.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -24,7 +27,8 @@ public class StringPrinter {
     public static final Logger logger = LoggerFactory.getLogger(StringPrinter.class);
 
     public static void main(String[] args) throws NonCacheableException {
-        WeekDayChecker dayChecker = new WeekDayChecker(new DateParser());
+        ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[]{"classpath:ui-context.xml", "classpath:custom-dao-context.xml","classpath:service-context.xml"});
+        WeekDayChecker dayChecker = (WeekDayChecker)ctx.getBean("dayChecker");
         CacheManager<BaseWeekDayChecker> manager = new CacheManager<>(dayChecker, new LeastRecentlyUsed(20));
         BaseWeekDayChecker weekChecker = manager.buildProxy();
 
@@ -36,7 +40,6 @@ public class StringPrinter {
             argument = args[0];
         }
         try {
-            //first call will be long
             long start = System.currentTimeMillis();
             String result = weekChecker.parseWeek(argument);
             long end = System.currentTimeMillis() - start;
@@ -46,8 +49,7 @@ public class StringPrinter {
             System.err.println("Wrong date format. Format must be \"dd-MM-yyyy\"");
             return;
         }
-            
-        //this time method does not need to execute. We already invoked that method above, with same args
+            //second invoke with same args, to show @Cacheable works fine
         try {
             long startAgain = System.currentTimeMillis();
             final String sameValue = weekChecker.parseWeek(argument);

@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 /**
  *
  * @author root
@@ -18,11 +20,17 @@ public class WeekDayChecker implements BaseWeekDayChecker{
     public static final String FORMAT = "dd-MM-yyyy";
     private static final Logger logger = LoggerFactory.getLogger(WeekDayChecker.class);
     
-    private final BaseDateParser parser;
-
+    @Qualifier("rusDateParser")
+    @Autowired
+    private BaseDateParser parser;
+    
     public WeekDayChecker(final BaseDateParser parser) {
         this.parser = parser;
     }
+
+    public WeekDayChecker() {
+    }
+    
     @Override
     public String parseWeek(final String input) throws ParseException{
         logger.info("parseWeek input: " + input);
@@ -32,4 +40,11 @@ public class WeekDayChecker implements BaseWeekDayChecker{
         final Date resultDate = dateFormat.parse(input);
         return parser.getWeek(resultDate);
     }
+
+    public void setParser(BaseDateParser parser) {
+        this.parser = parser;
+    }
+    
+    
+    
 }
